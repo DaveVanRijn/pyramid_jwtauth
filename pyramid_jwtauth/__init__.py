@@ -390,12 +390,15 @@ class JWTAuthenticationPolicy(object):
         """
         userid = request.environ.get("jwtauth.userid", False)
         if userid:
+            request.environ["jwtauth.signature_is_valid"] = True
             return userid
 
         params = self._get_params(request)
         if params is None:
+            request.environ["jwtauth.signature_is_valid"] = True
             return None
         if 'token' not in params:
+            request.environ["jwtauth.signature_is_valid"] = True
             return None
         # Now try to pull out the claims from the JWT - note it is unusable if
         # we get a decode error, but might be okay if we get a signature error
