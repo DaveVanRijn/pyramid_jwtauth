@@ -214,7 +214,7 @@ class JWTAuthenticationPolicy(object):
         callback to check the validity of the claimed identity.
         """
         userid = self._get_credentials(request)
-        self._check_signature(request)
+        # self._check_signature(request)
         if userid is None:
             return None
         if self.find_groups(userid, request) is None:
